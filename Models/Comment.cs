@@ -1,4 +1,3 @@
-
 namespace BugTracker.Models
 {
     public class Comment

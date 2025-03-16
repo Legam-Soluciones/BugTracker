@@ -42,24 +42,12 @@ namespace BugTracker.Controllers
 
         // Crear un nuevo ticket
         [HttpPost]
-        public async Task<IActionResult> CreateTicket([FromBody] Ticket ticket)
+        public async Task<ActionResult<Ticket>> CreateTicket(Ticket ticket)
         {
-            if (ticket == null || string.IsNullOrEmpty(ticket.Title) || string.IsNullOrEmpty(ticket.Description))
-            {
-                return BadRequest("Todos los campos son obligatorios.");
-            }
-
-            var userExists = await _context.Users.FindAsync(ticket.UserId);
-            if (userExists == null)
-            {
-                return BadRequest("El usuario no existe.");
-            }
-
-            ticket.User = userExists; // Relación con usuario
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetTickets), new { id = ticket.Id }, ticket);
+            return CreatedAtAction(nameof(GetTicket), new { id = ticket.Id }, ticket);
         }
 
         // Actualizar un ticket existente

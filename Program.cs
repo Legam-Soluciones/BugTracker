@@ -1,6 +1,14 @@
 using BugTracker.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +25,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BugTracker API v1"));
+}
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
 app.Run();
 
 // Add services to the container.
@@ -26,13 +44,9 @@ builder.Services.AddOpenApi();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
 app.UseHttpsRedirection();
 
 var summaries = new[]

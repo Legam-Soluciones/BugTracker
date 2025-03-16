@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\001.4 PROYECTO UMCA\\001-Mi_Projecto\\BugTracker\\BugTracker.csproj": {}
+    "H:\\001.4 PROYECTO UMCA\\BugTracker\\BugTracker.csproj": {}
   },
   "projects": {
-    "H:\\001.4 PROYECTO UMCA\\001-Mi_Projecto\\BugTracker\\BugTracker.csproj": {
+    "H:\\001.4 PROYECTO UMCA\\BugTracker\\BugTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\001.4 PROYECTO UMCA\\001-Mi_Projecto\\BugTracker\\BugTracker.csproj",
+        "projectUniqueName": "H:\\001.4 PROYECTO UMCA\\BugTracker\\BugTracker.csproj",
         "projectName": "BugTracker",
-        "projectPath": "H:\\001.4 PROYECTO UMCA\\001-Mi_Projecto\\BugTracker\\BugTracker.csproj",
+        "projectPath": "H:\\001.4 PROYECTO UMCA\\BugTracker\\BugTracker.csproj",
         "packagesPath": "C:\\Users\\legam\\.nuget\\packages\\",
-        "outputPath": "H:\\001.4 PROYECTO UMCA\\001-Mi_Projecto\\BugTracker\\obj\\",
+        "outputPath": "H:\\001.4 PROYECTO UMCA\\BugTracker\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -53,7 +53,7 @@
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[9.0.3, )"
+              "version": "[9.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -68,6 +68,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

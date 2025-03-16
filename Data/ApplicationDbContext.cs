@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using BugTracker.Models;  // Add the correct namespace for User, Ticket and Comment classes
+using BugTracker.Models;  // Asegúrate de que se importa el namespace correcto
 
 namespace BugTracker.Data
 {
@@ -14,21 +14,6 @@ namespace BugTracker.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Ticket>()
-                .HasOne(t => t.User)
-                .WithMany(u => u.Tickets)
-                .HasForeignKey(t => t.UserId);
-
-            modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Ticket)
-                .WithMany(t => t.Comments)
-                .HasForeignKey(c => c.TicketId);
-
-            modelBuilder.Entity<Comment>()
-                .HasOne(c => c.User)
-                .WithMany(u => u.Comments)
-                .HasForeignKey(c => c.UserId);
         }
     }
 }
