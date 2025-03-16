@@ -161,3 +161,4 @@ H:\001.4 PROYECTO UMCA\001-Mi_Projecto\BugTracker\bin\Debug\net9.0\Microsoft.Ext
 H:\001.4 PROYECTO UMCA\001-Mi_Projecto\BugTracker\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
 H:\001.4 PROYECTO UMCA\001-Mi_Projecto\BugTracker\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
 H:\001.4 PROYECTO UMCA\001-Mi_Projecto\BugTracker\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+H:\001.4 PROYECTO UMCA\001-Mi_Projecto\BugTracker\obj\Debug\net9.0\BugTracker.sourcelink.json
