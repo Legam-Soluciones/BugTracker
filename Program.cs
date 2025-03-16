@@ -1,17 +1,12 @@
 using BugTracker.Data;
+using BugTracker.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
+using BugTracker;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Agregar servicios al contenedor
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -25,17 +20,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
+// Configurar el middleware de la aplicación
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BugTracker API v1"));
 }
 
-app.UseHttpsRedirection();
+await app.RunAsync();
+app.UseRouting();
 app.UseAuthorization();
-app.MapControllers();
+app.MapControllers(); // Asegúrate de que esto está presente
 
-app.Run();
+await app.RunAsync();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -48,7 +45,27 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await context.Database.EnsureCreatedAsync(); // Asegura que la BD existe
 
+    if (!await context.Tickets.AnyAsync()) // Verifica si ya hay datos
+    {
+        context.Tickets.AddRange(new List<Ticket>
+        {
+            new Ticket { Title = "Error en Login", Description = "No se puede autenticar con credenciales correctas", Status = "Open", UserId = 1, User = new User { Id = 1, Name = "User1", Email = "user1@example.com" } },
+            new Ticket { Title = "Pantalla en Blanco", Description = "La pantalla se queda en blanco después de iniciar sesión", Status = "Open", UserId = 2, User = new User { Id = 2, Name = "User2", Email = "user2@example.com" } },
+            new Ticket { Title = "Carga Lenta", Description = "La aplicación tarda demasiado en responder", Status = "Closed", UserId = 3, User = new User { Id = 3, Name = "User3", Email = "user3@example.com" } }
+        });
+
+        await context.SaveChangesAsync();
+    }
+}
+
+app.UseRouting();
+app.UseAuthorization();
+app.MapControllers();
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -68,9 +85,12 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-app.Run();
+await app.RunAsync();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+namespace BugTracker
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+    {
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
 }

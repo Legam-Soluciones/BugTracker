@@ -1,13 +1,14 @@
 namespace BugTracker.Models
 
 {
-    public class Ticket
-    {
-        public int Id { get; set; }
-        public required string Title { get; set; }
-        public required string Description { get; set; }
-        public int UserId { get; set; }
-        public required User User { get; set; } // Add this property
-        // Add other properties as needed
-    }
+ public class Ticket
+{
+    public int Id { get; set; }
+    public string Title { get; set; } = string.Empty;  // Evitar valores nulos
+    public string Description { get; set; } = string.Empty;  // Evitar valores nulos
+    public string Status { get; set; } = "Open";  // Valor predeterminado para Status
+    public required User User { get; set; }  // Asegúrate de que el modelo 'User' exista
+    public int UserId { get; set; }
+}
+
 }

@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using BugTracker.Data;
 
@@ -17,7 +12,7 @@ namespace BugTracker
 
         public IConfiguration Configuration { get; }
 
-        // Configurar los servicios
+        /* Configurar los servicios */
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -33,7 +28,7 @@ namespace BugTracker
         }
 
         // Configurar el pipeline de la aplicación
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

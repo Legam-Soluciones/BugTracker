@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BugTracker.Data;
 using BugTracker.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BugTracker.Controllers
 {
@@ -67,7 +64,7 @@ namespace BugTracker.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_context.Tickets.Any(e => e.Id == id))
+                if (!await _context.Tickets.AnyAsync(e => e.Id == id))
                 {
                     return NotFound();
                 }
