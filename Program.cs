@@ -63,7 +63,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 var summaries = new[]

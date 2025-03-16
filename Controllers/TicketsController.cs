@@ -20,9 +20,10 @@ namespace BugTracker.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-            return await _context.Tickets.ToListAsync();
+            var tickets = await _context.Tickets.ToListAsync();
+            return Ok(tickets);
         }
-
+        
         // Obtener un ticket por ID
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(int id)
