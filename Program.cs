@@ -9,16 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Agregar servicios al contenedor
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BugTracker API", Version = "v1" });
-});
+builder.Services.AddSwaggerGen();
 
 // Agregar la configuración del contexto de base de datos
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+
+await app.RunAsync();
+app.UseRouting();
+app.UseAuthorization();
+app.MapControllers(); // Agregar el middleware de controladores
 
 // Configurar el middleware de la aplicación
 if (app.Environment.IsDevelopment())
@@ -27,10 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BugTracker API v1"));
 }
 
-await app.RunAsync();
-app.UseRouting();
-app.UseAuthorization();
-app.MapControllers(); // Asegúrate de que esto está presente
+// Asegúrate de que esto está presente
 
 await app.RunAsync();
 
@@ -63,8 +62,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseAuthorization();
-app.MapControllers();
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

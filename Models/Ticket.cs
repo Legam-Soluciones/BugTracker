@@ -9,6 +9,7 @@ namespace BugTracker.Models
     public string Status { get; set; } = "Open";  // Valor predeterminado para Status
     public required User User { get; set; }  // Asegúrate de que el modelo 'User' exista
     public int UserId { get; set; }
+    public DateTime CreatedAt { get; set; } // Agregar esta propiedad
 }
 
 }

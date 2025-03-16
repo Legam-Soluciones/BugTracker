@@ -5,7 +5,7 @@ using BugTracker.Models;
 
 namespace BugTracker.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tickets")]
     [ApiController]
     public class TicketsController : ControllerBase
     {
@@ -40,8 +40,16 @@ namespace BugTracker.Controllers
 
         // Crear un nuevo ticket
         [HttpPost]
-        public async Task<ActionResult<Ticket>> CreateTicket(Ticket ticket)
+        public async Task<ActionResult<Ticket>> CreateTicket([FromBody] Ticket ticket)
         {
+                if (ticket == null)
+                {
+                    return BadRequest("El ticket no puede ser nulo.");
+                }
+
+            // Asegurar que el campo CreatedAt no sea nulo
+            ticket.CreatedAt = DateTime.UtcNow;
+
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 
