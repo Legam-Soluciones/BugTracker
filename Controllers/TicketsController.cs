@@ -18,10 +18,10 @@ namespace BugTracker.Controllers
 
         // Obtener todos los tickets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
+        public async Task<ActionResult> GetTickets()
         {
             var tickets = await _context.Tickets.ToListAsync();
-            return Ok(tickets);
+            return Ok(tickets); // Devuelve un código de estado 200
         }
         
         // Obtener un ticket por ID
