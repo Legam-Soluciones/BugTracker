@@ -1,7 +1,15 @@
 using BugTracker.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BugTracker API", Version = "v1" });
+});
 
 // Agregar la configuración del contexto de base de datos
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -22,6 +30,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
 app.UseHttpsRedirection();
 
 var summaries = new[]
