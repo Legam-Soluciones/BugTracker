@@ -26,5 +26,7 @@ DefectDetection/
 ├── README.md
 └── .gitignore
 
+=======
 Autor
 Luis Gamboa
+=======
