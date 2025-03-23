@@ -17,7 +17,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
-await app.RunAsync();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers(); // Agregar el middleware de controladores
@@ -28,10 +27,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BugTracker API v1"));
 }
-
-// Asegúrate de que esto está presente
-
-await app.RunAsync();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
